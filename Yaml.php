@@ -35,8 +35,6 @@
  */
 class Yaml
 {
-    // SETTINGS
-
     const REMPTY = "\0\0\0\0\0";
 
     /**
@@ -45,19 +43,18 @@ class Yaml
      *
      * @var bool
      */
-    public $setting_dump_force_quotes = false;
+    public $settingDumpForceQuotes = false;
 
     /**
      * Setting this to true will forse YAMLLoad to use syck_load function when
      * possible. False by default.
+     *
      * @var bool
      */
-    public $setting_use_syck_is_possible = false;
+    public $settingUseSyckIsPossible = false;
 
-
-
-    /**#@+
-     * @access private
+    /**
+     * Private vars.
      * @var mixed
      */
     private $dumpIndent;
@@ -83,13 +80,36 @@ class Yaml
     public $nodeId;
 
     /**
-     * Load a valid YAML string to Spyc.
-     * @param string $input
-     * @return array
+     * Yaml Construct
+     * @param string $file (alternative) path of yaml file
      */
-    public function load($input)
+    public function __construct($file = '')
     {
-        return $this->loadString($input);
+        if (!empty($file)) {
+            $this->load($file);
+        }
+    }
+
+    /**
+     * Load a yaml file & parse
+     *
+     * @param  string $file path of yaml file
+     * @return array        yaml parsed result
+     */
+    public function load($file)
+    {
+        return $this->loadWithSource($this->loadFromFile($file));
+    }
+
+    /**
+     * Load a yaml string & parse
+     *
+     * @param  string $yamlContent string conatining yaml content
+     * @return array               yaml parsed result
+     */
+    public function loadString($yamlContent)
+    {
+        return $this->loadWithSource($this->loadFromString($yamlContent));
     }
 
     /**
@@ -325,7 +345,7 @@ class Yaml
             $wrapped = wordwrap($value,$this->dumpWordWrap,"\n$indent");
             $value   = ">\n".$indent.$wrapped;
         } else {
-            if ($this->setting_dump_force_quotes && is_string ($value) && $value !== self::REMPTY) {
+            if ($this->settingDumpForceQuotes && is_string ($value) && $value !== self::REMPTY) {
                 $value = '"' . $value . '"';
             }
         }
@@ -335,25 +355,12 @@ class Yaml
 
     // LOADING FUNCTIONS
 
-    private function load($input)
-    {
-        $Source = $this->loadFromSource($input);
-        return $this->loadWithSource($Source);
-    }
-
-    private function loadString($input)
-    {
-        $Source = $this->loadFromString($input);
-
-        return $this->loadWithSource($Source);
-    }
-
     private function loadWithSource($Source)
     {
         if (empty ($Source)) {
             return array();
         }
-        if ($this->setting_use_syck_is_possible && function_exists ('syck_load')) {
+        if ($this->settingUseSyckIsPossible && function_exists ('syck_load')) {
             $array = syck_load (implode ('', $Source));
 
             return is_array($array) ? $array : array();
@@ -426,13 +433,13 @@ class Yaml
         return $this->result;
     }
 
-    private function loadFromSource ($input)
+    private function loadFromFile($file)
     {
-        if (!empty($input) && strpos($input, "\n") === false && file_exists($input)) {
-            return file($input);
+        if (!file_exists($file)) {
+            throw new Exception("Error: yaml file does not exist: $file");
         }
 
-        return $this->loadFromString($input);
+        return file($file);
     }
 
     private function loadFromString ($input)
