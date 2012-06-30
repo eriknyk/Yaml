@@ -1,11 +1,12 @@
+README
+=========================
+[![Build Status](https://secure.travis-ci.org/eriknyk/Yaml.png?branch=master)](http://travis-ci.org/eriknyk/Yaml)
+
+PHP Yaml
+------------
+
 #
 #   Yaml loader libarary for PHP
-#
-# You can load this README!
-# Sample Code:
-# ----
-# <?php
-# $readme = Yaml::load('README');
 #
 --- %YAML:1.1
 title: Simple & Lightweight PHP YAML Class
