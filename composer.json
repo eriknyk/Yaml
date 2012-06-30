@@ -1,0 +1,11 @@
+{
+    "name": "3rd-party/Yaml",
+    "type": "library",
+    "description": "PHP Yaml Parser",
+    "keywords": ["yaml", "php", "parser"],
+    "homepage": "https://github.com/eriknyk/Yaml",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.0"
+    }
+}
