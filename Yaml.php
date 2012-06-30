@@ -1,4 +1,6 @@
 <?php
+namespace Alchemy\Component\Yaml;
+
 /**
  * Yaml Class
  *
