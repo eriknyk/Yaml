@@ -1,4 +1,5 @@
 <?php
+use Alchemy\Component\Yaml\Yaml;
 
 class ParseTest extends PHPUnit_Framework_TestCase
 {

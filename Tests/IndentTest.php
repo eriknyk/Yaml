@@ -1,4 +1,5 @@
 <?php
+use Alchemy\Component\Yaml\Yaml;
 
 class IndentTest extends PHPUnit_Framework_TestCase {
 

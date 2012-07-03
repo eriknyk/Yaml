@@ -1,4 +1,5 @@
 <?php
+use Alchemy\Component\Yaml\Yaml;
 
 function roundTrip($a) {
   $yaml = new Yaml();
