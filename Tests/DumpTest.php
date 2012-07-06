@@ -31,31 +31,31 @@ class DumpTest extends PHPUnit_Framework_TestCase
 
     public function testDumpWithQuotes()
     {
-      $yaml = new Yaml();
-      $yaml->settingDumpForceQuotes = true;
+        $yaml = new Yaml();
+        $yaml->settingDumpForceQuotes = true;
 
-      foreach ($this->files_to_test as $file) {
-        $cont = $yaml->load($file);
-        $dump = $yaml->dump($cont);
-        $yaml_after_dump = $yaml->loadString($dump);
+        foreach ($this->files_to_test as $file) {
+            $cont = $yaml->load($file);
+            $dump = $yaml->dump($cont);
+            $yaml_after_dump = $yaml->loadString($dump);
 
-        $this->assertEquals ($cont, $yaml_after_dump);
-      }
+            $this->assertEquals($cont, $yaml_after_dump);
+        }
     }
 
     public function testDumpArrays()
     {
-      $dump = $this->yaml->dump(array('item1', 'item2', 'item3'));
-      $awaiting = "---\n- item1\n- item2\n- item3\n";
+        $dump = $this->yaml->dump(array('item1', 'item2', 'item3'));
+        $awaiting = "---\n- item1\n- item2\n- item3\n";
 
-      $this->assertEquals ($awaiting, $dump);
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testNull()
     {
         $dump = $this->yaml->dump(array('a' => 1, 'b' => null, 'c' => 3));
         $awaiting = "---\na: 1\nb: null\nc: 3\n";
-        $this->assertEquals ($awaiting, $dump);
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testNext()
@@ -65,7 +65,7 @@ class DumpTest extends PHPUnit_Framework_TestCase
         next($array);
         $dump = $this->yaml->dump($array);
         $awaiting = "---\n- aaa\n- bbb\n- ccc\n";
-        $this->assertEquals ($awaiting, $dump);
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpingMixedArrays()
@@ -77,8 +77,9 @@ class DumpTest extends PHPUnit_Framework_TestCase
         $array[] = array('first' => 'A sequence','second' => 'of mapped values');
         $array['Mapped'] = array('A sequence','which is mapped');
         $array['A Note'] = 'What if your text is too long?';
-        $array['Another Note'] = 'If that is the case, the dumper will probably fold your text by using a block.  Kinda like this.';
-        $array['The trick?'] = 'The trick is that we overrode the default indent, 2, to 4 and the default wordwrap, 40, to 60.';
+        $array['Another Note'] = 'If that is the case, the dumper will probably fold your text by using a block.';
+        $array['The trick?'] = 'The trick is that we overrode the default indent, ' .
+                               '2, to 4 and the default wordwrap, 40, to 60.';
         $array['Old Dog'] = "And if you want\n to preserve line breaks, \ngo ahead!";
         $array['key:withcolon'] = "Should support this to";
 
@@ -89,70 +90,70 @@ class DumpTest extends PHPUnit_Framework_TestCase
     {
         $dump = $this->yaml->dump(array(0 => 1, 'b' => 2, 1 => 3));
         $awaiting = "---\n0: 1\nb: 2\n1: 3\n";
-        $this->assertEquals ($awaiting, $dump);
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpNumerics()
     {
-      $dump = $this->yaml->dump(array ('404', '405', '500'));
-      $awaiting = "---\n- 404\n- 405\n- 500\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ('404', '405', '500'));
+        $awaiting = "---\n- 404\n- 405\n- 500\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpAsterisks()
     {
-      $dump = $this->yaml->dump(array ('*'));
-      $awaiting = "---\n- '*'\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ('*'));
+        $awaiting = "---\n- '*'\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpAmpersands()
     {
-      $dump = $this->yaml->dump(array ('some' => '&foo'));
-      $awaiting = "---\nsome: '&foo'\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ('some' => '&foo'));
+        $awaiting = "---\nsome: '&foo'\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpExclamations()
     {
-      $dump = $this->yaml->dump(array ('some' => '!foo'));
-      $awaiting = "---\nsome: '!foo'\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ('some' => '!foo'));
+        $awaiting = "---\nsome: '!foo'\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpExclamations2()
     {
-      $dump = $this->yaml->dump(array ('some' => 'foo!'));
-      $awaiting = "---\nsome: foo!\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ('some' => 'foo!'));
+        $awaiting = "---\nsome: foo!\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpApostrophes()
     {
-      $dump = $this->yaml->dump(array ('some' => "'Biz' pimpt bedrijventerreinen"));
-      $awaiting = "---\nsome: \"'Biz' pimpt bedrijventerreinen\"\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ('some' => "'Biz' pimpt bedrijventerreinen"));
+        $awaiting = "---\nsome: \"'Biz' pimpt bedrijventerreinen\"\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testDumpNumericHashes()
     {
-      $dump = $this->yaml->dump(array ("titel"=> array("0" => "", 1 => "Dr.", 5 => "Prof.", 6 => "Prof. Dr.")));
-      $awaiting = "---\ntitel:\n  0:\n  1: Dr.\n  5: Prof.\n  6: Prof. Dr.\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ("titel"=> array("0" => "", 1 => "Dr.", 5 => "Prof.", 6 => "Prof. Dr.")));
+        $awaiting = "---\ntitel:\n  0:\n  1: Dr.\n  5: Prof.\n  6: Prof. Dr.\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testEmpty()
     {
-      $dump = $this->yaml->dump(array("foo" => array()));
-      $awaiting = "---\nfoo: [ ]\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array("foo" => array()));
+        $awaiting = "---\nfoo: [ ]\n";
+        $this->assertEquals($awaiting, $dump);
     }
 
     public function testHashesInKeys()
     {
-      $dump = $this->yaml->dump(array ('#color' => '#ffffff'));
-      $awaiting = "---\n\"#color\": '#ffffff'\n";
-      $this->assertEquals ($awaiting, $dump);
+        $dump = $this->yaml->dump(array ('#color' => '#ffffff'));
+        $awaiting = "---\n\"#color\": '#ffffff'\n";
+        $this->assertEquals($awaiting, $dump);
     }
-
 }
+
