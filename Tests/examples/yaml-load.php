@@ -7,15 +7,17 @@
 # license: [MIT License, http://www.opensource.org/licenses/mit-license.php]
 #
 
-include('../spyc.php');
+include '../../Yaml.php';
+$yaml = new Yaml();
 
-$array = Spyc::YAMLLoad('../spyc.yaml');
+$array = $yaml->load('../Fixtures/sample.yaml');
 
-echo '<pre><a href="spyc.yaml">spyc.yaml</a> loaded into PHP:<br/>';
+echo '<pre><a href="../Fixtures/sample.yaml">sample.yaml</a> loaded into PHP:<br/>';
 print_r($array);
 echo '</pre>';
 
 
 echo '<pre>YAML Data dumped back:<br/>';
-echo Spyc::YAMLDump($array);
+echo $yaml->dump($array);
 echo '</pre>';
+
