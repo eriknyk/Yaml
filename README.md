@@ -5,8 +5,9 @@ README
 PHP Yaml
 ------------
 
+```yaml
 #
-#   Yaml loader libarary for PHP
+#   Yaml loader library for PHP
 #
 --- %YAML:1.1
 title: Simple & Lightweight PHP YAML Class
@@ -157,3 +158,4 @@ thanks:
   - Mike Thornton
   - Fabien Potencier
   - Mustafa Kumas
+```
